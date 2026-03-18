@@ -1,17 +1,19 @@
 FROM python:3.9-slim
 
-# تثبيت Java فقط
+# تثبيت Java
 RUN apt-get update && apt-get install -y default-jre-headless && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# ترقية pip
-RUN pip install --upgrade pip setuptools wheel
+# استخدام مستودع بايثون بديل (ميرور صيني سريع)
+RUN pip config set global.index-url https://pypi.douban.com/simple/
 
-# تثبيت numpy أولاً (بإصدار متوافق)
+# ترقية pip
+RUN pip install --upgrade pip
+
+# تثبيت numpy أولاً
 RUN pip install numpy==1.21.6
 
-# نسخ requirements وتثبيت الباقي
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
