@@ -1,6 +1,6 @@
-FROM python:3.9.18-slim-bullseye
+FROM python:3.9-slim
 
-# تثبيت Java فقط (بدون تعقيدات)
+# تثبيت Java فقط
 RUN apt-get update && apt-get install -y default-jre-headless && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -8,10 +8,11 @@ WORKDIR /app
 # ترقية pip
 RUN pip install --upgrade pip setuptools wheel
 
-# تثبيت المكتبات بشكل تدريجي
+# تثبيت numpy أولاً (بإصدار متوافق)
+RUN pip install numpy==1.21.6
+
+# نسخ requirements وتثبيت الباقي
 COPY requirements.txt .
-RUN pip install --no-cache-dir numpy==1.23.5
-RUN pip install --no-cache-dir pandas==2.0.3
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
