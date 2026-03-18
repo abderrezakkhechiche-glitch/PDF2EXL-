@@ -1,6 +1,6 @@
-FROM python:3.10-slim
+FROM python:3.9-slim
 
-# تثبيت Java (ضروري لمكتبة tabula)
+# تثبيت Java
 RUN apt-get update && apt-get install -y default-jre-headless && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
