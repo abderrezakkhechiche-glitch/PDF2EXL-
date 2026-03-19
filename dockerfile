@@ -1,16 +1,22 @@
-+FROM python:3.10-slim
+FROM python:3.10-slim
 
-(tabula ضروري لمكتبة) java تثبيت #+
-+RUN apt-get update && apt-get install -y default-jre-headless && rm -rf /var/lib/apt/lists/*
+# تثبيت Java (عندك صحيح)
+RUN apt-get update && apt-get install -y \
+    default-jre-headless \
+    build-essential \
+    gcc \
+    g++ \
+    python3-dev \
+    libatlas-base-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir-r requi
-rements.txt
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-تشغيل البوت #+
 CMD ["python", "pdf_to_excel_bot.py"]
