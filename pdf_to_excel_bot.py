@@ -102,7 +102,6 @@ def main():
     app.add_handler(MessageHandler(filters.Document.PDF, handle_pdf))
     
     print("✅ PDF to Excel Bot started successfully")
+    if __name__ == "__main__":
+    print("✅ Bot is running on Render...")
     app.run_polling()
-
-if __name__ == "__main__":
-    main()
