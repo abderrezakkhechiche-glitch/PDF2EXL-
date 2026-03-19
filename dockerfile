@@ -1,6 +1,5 @@
 FROM python:3.10-slim
 
-# تثبيت Java (عندك صحيح)
 RUN apt-get update && apt-get install -y \
     default-jre-headless \
     build-essential \
