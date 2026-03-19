@@ -1,14 +1,18 @@
-FROM python:3.10-slim
+FROM python:3.9-slim
 
-# تثبيت Java (ضروري لمكتبة tabula)
-RUN apt-get update && apt-get install -y default-jre-headless && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    default-jre-headless \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
+RUN pip install --upgrade pip
+
 COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# تشغيل البوت
 CMD ["python", "pdf_to_excel_bot.py"]
